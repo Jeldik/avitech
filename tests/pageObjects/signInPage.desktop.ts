@@ -6,5 +6,4 @@ export class SignInPage extends BasePage {
     public readonly LocatorPasswordInput = this.page.locator('[name="Passwd"]');
     public readonly LocatorPasswordNextBtn = this.page.locator('#passwordNext');
     public readonly LocatorNotNowBtn = this.page.locator('#passwordNext');
-
 }
