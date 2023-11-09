@@ -6,13 +6,7 @@ let pm: PageManager;
 test.describe('Tests for Avitech', () => {
   test.beforeEach(async ({ page }) => {
     pm = new PageManager(page);
-
-    await page.goto('/gmail/about/');
-    await pm.aboutPage.LocatorSignInButton.click();
-    await pm.signPage.LocatorEmailInput.fill(process.env.EMAIL!)
-    await pm.signPage.LocatorNextBtn.click();
-    await pm.signPage.LocatorPasswordInput.fill(process.env.PASSWORD!);
-    await pm.signPage.LocatorPasswordNextBtn.click();
+    await page.goto('https://mail.google.com/mail/');
   });
 
   test('New message btn open a new dialog', async ({ page }) => {
@@ -26,7 +20,7 @@ test.describe('Tests for Avitech', () => {
     await pm.inboxPage.LocatorContacts.click();
     await pm.inboxPage.LocatorContact.click();
     await pm.inboxPage.LocatorInsert.click();
-    
+
     await expect(pm.inboxPage.LocatorSelectedContact).toBeVisible();
   });
 
@@ -42,7 +36,8 @@ test.describe('Tests for Avitech', () => {
   test('Logout', async ({ page }) => {
     await pm.inboxPage.LocatorProfile.click();
     await pm.inboxPage.LocatorLogout.click();
-    
+    await page.goto('/gmail/about/');
+
     await expect(page.locator('body')).toContainText('Sign in');
   });
 });
