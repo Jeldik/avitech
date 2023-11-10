@@ -42,6 +42,7 @@ test.describe('Feature: Send an Email with Attachment', () => {
     await test.step('And I logout', async () => {
       await pm.inboxPage.LocatorProfile.click();
       await pm.inboxPage.LocatorLogout.click();
+      await page.goto('https://mail.google.com/mail/');
 
       await expect(page.locator('body')).toContainText('Sign in');
     });
