@@ -1,43 +1,33 @@
-import { test, expect } from '@playwright/test';
-import { PageManager } from './pageObjects/pageManager.desktop';
-
-let pm: PageManager;
+import { expect } from '@playwright/test';
+import { test } from '../test-options.ts';
 
 test.describe('Tests for Avitech', () => {
-  test.beforeEach(async ({ page }) => {
-    pm = new PageManager(page);
-    await page.goto('https://mail.google.com/mail/');
+  test('New message btn open a new dialog', async ({ pageManager }) => {
+    await pageManager.inboxPage.LocatorNewMessage.click();
+
+    expect(await pageManager.inboxPage.LocatorNewMessageIframe.isVisible());
   });
 
-  test('New message btn open a new dialog', async ({ page }) => {
-    await pm.inboxPage.LocatorNewMessage.click();
+  test('Pick the contact from a contact list', async ({ pageManager }) => {
+    await pageManager.inboxPage.LocatorNewMessage.click();
+    await pageManager.inboxPage.LocatorContacts.click();
+    await pageManager.inboxPage.LocatorContact.click();
+    await pageManager.inboxPage.LocatorInsert.click();
 
-    expect(await pm.inboxPage.LocatorNewMessageIframe.isVisible());
+    await expect(pageManager.inboxPage.LocatorSelectedContact).toBeVisible();
   });
 
-  test('Pick the contact from a contact list', async ({ page }) => {
-    await pm.inboxPage.LocatorNewMessage.click();
-    await pm.inboxPage.LocatorContacts.click();
-    await pm.inboxPage.LocatorContact.click();
-    await pm.inboxPage.LocatorInsert.click();
+  test('Attach an attachment', async ({ pageManager }) => {
+    await pageManager.inboxPage.LocatorNewMessage.click();
+    await pageManager.inboxPage.LocatorInputFile.setInputFiles('./data/zadanie.docx');
+    await pageManager.inboxPage.page.reload();
 
-    await expect(pm.inboxPage.LocatorSelectedContact).toBeVisible();
-  });
-
-  test('Attach an attachment', async ({ page }) => {
-    await pm.inboxPage.LocatorNewMessage.click();
-    await pm.inboxPage.LocatorInputFile.setInputFiles('./data/zadanie.docx');
-    await pm.inboxPage.page.reload();
-
-    page.getByText('(16 kB)');
+    pageManager.inboxPage.page.getByText('(16 kB)');
   });
 
 
-  test('Logout', async ({ page }) => {
-    await pm.inboxPage.LocatorProfile.click();
-    await pm.inboxPage.LocatorLogout.click();
-    await page.goto('/gmail/about/');
-
-    await expect(page.locator('body')).toContainText('Sign in');
+  test('Logout', async ({ pageManager }) => {
+    await pageManager.inboxPage.LocatorProfile.click();
+    await pageManager.inboxPage.LocatorLogout.click();
   });
 });

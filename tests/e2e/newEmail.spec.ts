@@ -10,7 +10,7 @@ test.describe('Feature: Send an Email with Attachment', () => {
     await test.step('Given I am logged in to my email account', async () => {
       pm = new PageManager(page);
       
-      await page.goto('https://mail.google.com/mail/');
+      await page.goto('');
     });
 
     await test.step('When I click on a new email message', async () => {

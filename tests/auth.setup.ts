@@ -7,8 +7,7 @@ const authFile = '.auth/user.json'
 setup('auth', async ({ page }) => {
     pm = new PageManager(page);
 
-    await page.goto('/gmail/about/');
-    await pm.aboutPage.LocatorSignInButton.click();
+    await page.goto('');
     await pm.signPage.LocatorEmailInput.fill(process.env.EMAIL!)
     await pm.signPage.LocatorNextBtn.click();
     await pm.signPage.LocatorPasswordInput.fill(process.env.PASSWORD!);
