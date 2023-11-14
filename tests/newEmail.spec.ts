@@ -2,6 +2,14 @@ import { expect } from '@playwright/test';
 import { test } from '../test-options.ts';
 
 test.describe('Tests for Avitech', () => {
+  test('Attach an attachment', async ({ page, pageManager }) => {
+    await pageManager.inboxPage.LocatorNewMessage.click();
+    await pageManager.inboxPage.LocatorInputFile.setInputFiles('./data/zadanie.docx');
+    await page.reload();
+
+    pageManager.inboxPage.page.getByText('(16 kB)');
+  });
+  
   test('New message btn open a new dialog', async ({ pageManager }) => {
     await pageManager.inboxPage.LocatorNewMessage.click();
 
@@ -17,13 +25,6 @@ test.describe('Tests for Avitech', () => {
     await expect(pageManager.inboxPage.LocatorSelectedContact).toBeVisible();
   });
 
-  test('Attach an attachment', async ({ page, pageManager }) => {
-    await pageManager.inboxPage.LocatorNewMessage.click();
-    await pageManager.inboxPage.LocatorInputFile.setInputFiles('./data/zadanie.docx');
-    await page.reload();
-
-    pageManager.inboxPage.page.getByText('(16 kB)');
-  });
 
   test('Logout', async ({ pageManager }) => {
     await pageManager.inboxPage.LocatorProfile.click();
