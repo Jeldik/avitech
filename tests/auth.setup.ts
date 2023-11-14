@@ -4,7 +4,7 @@ import { PageManager } from './pageObjects/pageManager.desktop';
 let pm: PageManager;
 const authFile = '.auth/user.json'
 
-setup('auth', async ({ page }) => {
+setup('Given I am logged in to my email account', async ({ page }) => {
     pm = new PageManager(page);
 
     await page.goto('');
