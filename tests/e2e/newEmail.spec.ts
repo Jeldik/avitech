@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const subject = 'Automation Test ' + uuidv4();
 
-test.describe('Feature: Send an Email with Attachment', () => {
+test.describe('Feature: Send an Email with an Attachment', () => {
   test('Scenario: Send an Email with Attachment', async ({ pageManager }) => {
     await test.step('When I click on a new email message', async () => {
       await pageManager.inboxPage.LocatorNewMessage.click();
