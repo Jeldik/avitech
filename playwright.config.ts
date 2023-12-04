@@ -1,18 +1,16 @@
-import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
+import { defineConfig, devices } from '@playwright/test'
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
 export default defineConfig({
   retries: 1,
   timeout: 60000,
   fullyParallel: true,
-  
   use: {
     baseURL: 'https://mail.google.com/mail/',
-    trace: 'on-first-retry',
+    trace: 'on-first-retry'
   },
-
   projects: [
     {
       name: 'setup',
@@ -24,5 +22,5 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'], storageState: '.auth/user.json' },
       dependencies: ['setup']
     }
-  ],
-});
+  ]
+})
